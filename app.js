@@ -6,10 +6,10 @@ const app = express();
 
 const itemRoutes = require("./itemRoutes")
 
-app.use(morgan("dev"));
 app.use(express.json());
+app.use(morgan("dev"));
 
-app.use("/item", itemRoutes)
+app.use("/items", itemRoutes)
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
