@@ -19,4 +19,26 @@ router.post("/", (req, res, next) => {
     }
 })
 
+router.get("/:name", (req, res, next) => {
+    try {
+        const reqName = req.params.name;
+        const reqItem = items.filter(i => i.name === reqName);
+        return res.json({Item: reqItem[0]})
+    } catch(err) {
+        next(err)
+    }
+})
+
+router.patch("/:name", (req, res, next) => {
+    try {
+        const reqName = req.params.name;
+        const reqItem = items.findIndex(i => i.name === reqName);
+        let updatedItem = new Item(req.body.name, +req.body.price);
+        items.splice(reqItem, 1, updatedItem)
+        return res.json({updated: updatedItem})
+    } catch(err) {
+        next(err)
+    }
+})
+
 module.exports = router;
