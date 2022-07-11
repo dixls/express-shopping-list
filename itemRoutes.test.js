@@ -51,3 +51,13 @@ describe("PATCH /item/:name", () => {
         expect(items.findIndex(i => i.name === testItem.name)).toBe(-1);
     })
 })
+
+describe("DELETE /item/:name", () => {
+    test("given an item in fakeDb, the item is deleted", async () => {
+        const res = await request(app).delete(`/items/${testItem.name}`);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({message: `${testItem.name} Deleted`});
+        expect(items.findIndex(i => i.name === testItem.name)).toBe(-1);
+    })
+})
